@@ -25,7 +25,7 @@ public class SettingActivity extends Activity {
     private Switch switch_boot_auto;
     private Switch switch_messager;
     private MyReceiver receiver = null;
-    public static int massage_flag=0;
+    public static int massage_flag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,12 @@ public class SettingActivity extends Activity {
         /* 设置“开启桌面宠物”开关有关事件 */
         switch_work = (Switch) findViewById(R.id.switch_work);
         switch_work.setChecked(mySharedPreferences2.getBoolean("work_ischecked", false));
+        if (switch_work.isChecked()) {
+            //勾选则开启服务
+            Intent intent = new Intent(SettingActivity.this,
+                    FloatWindowService.class);
+            startService(intent);
+        }
         switch_work.setOnCheckedChangeListener(new
                                                        CompoundButton.OnCheckedChangeListener() {
                                                            @Override
@@ -65,7 +71,7 @@ public class SettingActivity extends Activity {
 
       /* 设置“开机自动启动”开关有关事件 */
         switch_boot_auto = (Switch) findViewById(R.id.switch_boot_auto);
-        switch_boot_auto.setChecked(mySharedPreferences2.getBoolean("boot_ischecked", false));//默认值怎么处理？
+        switch_boot_auto.setChecked(mySharedPreferences2.getBoolean("boot_ischecked", false));
         switch_boot_auto.setOnCheckedChangeListener(new
                                                             CompoundButton.OnCheckedChangeListener() {
                                                                 @Override
@@ -97,9 +103,9 @@ public class SettingActivity extends Activity {
                                                                    editor.commit();
                                                                    if (isChecked) {
 
-                                                                       massage_flag=1;
+                                                                       massage_flag = 1;
                                                                    } else {
-                                                                       massage_flag=0;
+                                                                       massage_flag = 0;
 
                                                                    }
                                                                }
@@ -122,7 +128,7 @@ public class SettingActivity extends Activity {
             @Override
             public void onClick(View arg) {
                 //点击操作
-                Intent intent=new Intent(SettingActivity.this, AlarmActivity.class);
+                Intent intent = new Intent(SettingActivity.this, AlarmActivity.class);
                 startActivity(intent);
             }
         });
