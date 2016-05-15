@@ -38,6 +38,7 @@ public class FloatWindowService extends Service {
      * 定时器，定时进行检测当前应该创建还是移除悬浮窗。
      */
     private Timer timer;
+   // public static int count=0;
 
     @Override
     public IBinder onBind(Intent intent) {

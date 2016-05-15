@@ -26,6 +26,7 @@ public class SettingActivity extends Activity {
     private Switch switch_messager;
     private MyReceiver receiver = null;
     public static int massage_flag = 0;
+    public static int start_flag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,9 +83,11 @@ public class SettingActivity extends Activity {
                                                                     editor.commit();
                                                                     if (isChecked) {
                                                                         //选中work_boot_auto
+                                                                        start_flag = 1;
 
                                                                     } else {
                                                                         //未选中work_boot_auto
+                                                                        start_flag = 0;
 
                                                                     }
                                                                 }
