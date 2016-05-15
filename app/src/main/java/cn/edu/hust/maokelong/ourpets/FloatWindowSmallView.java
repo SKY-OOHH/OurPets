@@ -1,18 +1,15 @@
 package cn.edu.hust.maokelong.ourpets;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+
 import java.lang.reflect.Field;
-import java.util.Timer;
 import java.util.Random;
-import java.util.logging.LogRecord;
 
 import pl.droidsonroids.gif.GifImageView;
 
@@ -48,7 +45,6 @@ public class FloatWindowSmallView extends LinearLayout {
      */
     private WindowManager.LayoutParams mParams;
     private static FloatWindowMassageView MassageWindow;
-    private static FloatWindowService flag;
 
     /**
      * 记录当前手指位置在屏幕上的横坐标值
@@ -88,7 +84,9 @@ public class FloatWindowSmallView extends LinearLayout {
 
     private GifImageView gif;
     private Pet mypet;
-    /*随机产生0-4*/
+    /**
+     * 产生随机数，用于选择不同宠物的动态效果
+     */
     public int Random(Pet.PetTheme theme)
     {
         int Rand=0;
@@ -106,6 +104,46 @@ public class FloatWindowSmallView extends LinearLayout {
         }
         return Rand;
     }
+
+    /**
+     * runnable-静态图
+     * runnable1-固定时间动态效果，用于正常切换
+     * runnable2-固定时间动态效果，用于拖拽显示，动完关闭
+     */
+    final Runnable runnable= new Runnable() {
+        @Override
+        public void run() {
+            Pet.PetTheme petTheme1 = mypet.getPetTheme();
+            gif.setImageResource(mypet.getStillImageSource(petTheme1));
+        }
+    };
+    final Runnable runnable1 = new Runnable() {
+        @Override
+        public void run() {
+            Pet.PetAction petAction1;
+            Pet.PetTheme petTheme1;
+            //mypet = new Pet();
+            petTheme1 = mypet.getPetTheme();
+            petAction1 = mypet.getPetAction(Random(petTheme1));
+            gif.setImageResource(mypet.getActionImageSource(petTheme1,petAction1));
+            handler.postDelayed(runnable, 15000);      //动15秒
+            handler.postDelayed(this, 600000);         //静600秒后继续动
+        }
+    };
+    final Runnable runnable2 = new Runnable() {
+        @Override
+        public void run() {
+            Pet.PetAction petAction1;
+            Pet.PetTheme petTheme1;
+            //mypet = new Pet();
+            petTheme1 = mypet.getPetTheme();
+            petAction1 = mypet.getPetAction(Random(petTheme1));
+            gif.setImageResource(mypet.getActionImageSource(petTheme1,petAction1));
+            handler.postDelayed(runnable, 15000);      //动15秒
+            handler.postDelayed(this, 600000);         //静600秒后继续动
+        }
+    };
+
     public FloatWindowSmallView(Context context) {
         super(context);
         windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -119,9 +157,9 @@ public class FloatWindowSmallView extends LinearLayout {
         Pet.PetTheme petTheme1;
         petTheme1 = mypet.getPetTheme();
         gif.setImageResource(mypet.getStillImageSource(petTheme1));
-        /*int a=Random(petTheme1);
+        int a=Random(petTheme1);
         petAction1 = mypet.getPetAction(a);
-        gif.setImageResource(mypet.getActionImageSource(petTheme1,petAction1));*/
+        gif.setImageResource(mypet.getActionImageSource(petTheme1,petAction1));
         final Runnable runnable1= new Runnable() {
             @Override
             public void run() {
@@ -141,13 +179,13 @@ public class FloatWindowSmallView extends LinearLayout {
                 handler.postDelayed(runnable1, 60000);      //动60秒
                 handler.postDelayed(this, 600000);        //静600秒
             }
-        };
-        handler.postDelayed(runnable, 60000);
+        };*/
+        handler.postDelayed(runnable1, 60000);           //60秒后开始动
         Pet.PetTheme petTheme1;
         petTheme1 = mypet.getPetTheme();
         gif.setImageResource(mypet.getStillImageSource(petTheme1));
-        //gif.setImageResource(R.mipmap.beaver);
-      /*  if(flag.count >= 10)
+        /*gif.setImageResource(R.mipmap.beaver);
+       if(flag.count >= 10)
        {
            mypet = new Pet();
            petTheme1 = mypet.getPetTheme();
@@ -182,6 +220,12 @@ public class FloatWindowSmallView extends LinearLayout {
                     yInScreen = event.getRawY() - getStatusBarHeight();
                     // 手指移动的时候更新小悬浮窗的位置
                     updateViewPosition();
+                    /**
+                     * 移动的时候，宠物开始动
+                     */
+                    Pet.PetTheme petTheme1;
+                    petTheme1 = mypet.getPetTheme();
+                    gif.setImageResource(mypet.getMoveImageSource(petTheme1));
                 }
                 break;
             case MotionEvent.ACTION_UP:
@@ -192,6 +236,13 @@ public class FloatWindowSmallView extends LinearLayout {
                     else
                         openMassageWindow();
                 }
+                else {      //手指离开屏幕，并判断是拖拽事件
+                    Pet.PetTheme petTheme1;                                     //停止动态效果
+                    petTheme1 = mypet.getPetTheme();
+                    gif.setImageResource(mypet.getStillImageSource(petTheme1));
+                    handler.postDelayed(runnable2,60000);                   //60秒后开始随机动
+                    handler.removeCallbacks(runnable2);                     //关闭此次随机动，继续runnable1
+                }
                 break;
             default:
                 break;
@@ -200,9 +251,9 @@ public class FloatWindowSmallView extends LinearLayout {
     }
 
 
-        /**
-         * 打开大悬浮窗，同时关闭小悬浮窗。
-         */
+    /**
+     * 打开大悬浮窗，同时关闭小悬浮窗。
+     */
     private void openMassageWindow() {
         MyWindowManager.createMassageWindow(getContext());
         MyWindowManager.getMassage(getContext());

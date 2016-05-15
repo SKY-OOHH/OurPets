@@ -1,8 +1,5 @@
 package cn.edu.hust.maokelong.ourpets;
 
-import java.util.Random;
-
-
 /**
  * Created by lenovo on 2016/5/14.
  */
@@ -24,7 +21,10 @@ public class Pet {
     /**
      *宠物主题、宠物行为的get、set方法
      */
-    /*需要将用户选择的主题传递一个信号到这里，然后用switch语句选择主题*/
+    /**
+     * 这里暂时默认主题是BlueSky
+     * 需要将用户选择的主题传递一个信号到这里，然后用switch语句选择主题
+     */
     public PetTheme getPetTheme() {
         petTheme = PetTheme.BlueSky;
         return petTheme;
@@ -33,8 +33,10 @@ public class Pet {
     public void setPetTheme(PetTheme petTheme) {
         this.petTheme = petTheme;
     }
-    /*//获取静态图片源
-    public PetStill getPetStatic(PetTheme theme){
+    /**
+     * 获取静态图片源
+     * */
+    /*public PetStill getPetStatic(PetTheme theme){
         switch (theme){
             case Beaver:
                 petStill = PetStill.B_eaver;
@@ -205,7 +207,23 @@ public class Pet {
                 handle = R.mipmap.bluesky;
                 break;
             case Beaver:
-               handle = R.mipmap.beaver;
+                handle = R.mipmap.beaver;
+                break;
+        }
+        return handle;
+    }
+    public int getMoveImageSource(PetTheme theme) {
+        //TODO 拖拽特效选择
+        int handle = -1;
+        switch (theme) {
+            case Bear:
+                handle = R.drawable.lovely;
+                break;
+            case BlueSky:
+                handle = R.drawable.hug;
+                break;
+            case Beaver:
+                handle = R.drawable.shy;
                 break;
         }
         return handle;
