@@ -30,6 +30,7 @@ public class SettingActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //test
         SharedPreferences mySharedPreferences2 = getSharedPreferences("test",
                 Activity.MODE_PRIVATE);
         setContentView(R.layout.activity_setting);
