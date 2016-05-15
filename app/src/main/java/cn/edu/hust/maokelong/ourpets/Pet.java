@@ -26,7 +26,7 @@ public class Pet {
      */
     /*需要将用户选择的主题传递一个信号到这里，然后用switch语句选择主题*/
     public PetTheme getPetTheme() {
-        petTheme = PetTheme.Bear;
+        petTheme = PetTheme.BlueSky;
         return petTheme;
     }
 
