@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">桌面大宠物</string>
+    <string name="plugin_alarm">闹钟</string>
+
     <string name="switch_work">开启桌面宠物</string>
     <string name="switch_boot_auto">开机自动启动</string>
     <string name="switch_message_receive">接受微信消息</string>
@@ -14,6 +16,7 @@
     <string name="rname3">张阳</string>
     <string name="rname4">张丽</string>
     <string name="rname5">金盼盼</string>
+
     <string name="title_activity_set_alarms">设置闹钟</string>
     <string name="no_alarms">尚未添加任何闹钟</string>
     <string name="desc">WebChat Get RedMoney</string>
