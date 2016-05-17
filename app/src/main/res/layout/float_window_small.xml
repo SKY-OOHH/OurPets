@@ -7,14 +7,17 @@
     <LinearLayout
         android:id="@+id/small_window_layout"
         android:layout_width="60dp"
-        android:layout_height="87dp"
+        android:layout_height="60dp"
         android:orientation="vertical"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:background="@drawable/background_white_circular">
 
         <pl.droidsonroids.gif.GifImageView
             android:id="@+id/petGif"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginLeft="15dp"
             android:visibility="visible"
             />
 

@@ -3,6 +3,7 @@ package cn.edu.hust.maokelong.ourpets;
 /**
  * Created by maokelong on 2016/4/17.
  */
+
 import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.PixelFormat;
@@ -12,27 +13,18 @@ import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.TextView;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
-
-import cn.edu.hust.maokelong.ourpets.R;
-
 public class MyWindowManager {
 
     private static FloatWindowMassageView MassageWindow;
     public static TextView imageView;
-    private  static String scount=null;
-    public static int flag1=0;
+    private static String scount = null;
+    public static int flag1 = 0;
     /**
      * 大悬浮窗View的实例
      */
 
 
-    public static String content1=null;
-
-
+    public static String content1 = null;
 
 
     private static LayoutParams MassageWindowParams;
@@ -71,6 +63,7 @@ public class MyWindowManager {
      */
     private static ActivityManager mActivityManager;
     private static SettingActivity settingActivity;
+
     /**
      * 创建一个小悬浮窗。初始位置为屏幕的右部中间位置。
      *
@@ -107,22 +100,12 @@ public class MyWindowManager {
         int screenHeight = windowManager.getDefaultDisplay().getHeight();
         if (MassageWindow == null) {
             MassageWindow = new FloatWindowMassageView(context);
-            if ( MassageWindowParams == null) {
+            if (MassageWindowParams == null) {
                 int flags = WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
-
-
-
-
-
-
                 MassageWindowParams = new LayoutParams();
                 MassageWindowParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
-
                 // WindowManager.LayoutParams.TYPE_SYSTEM_ALERT
-
                 // 设置flag
-
-
                 // | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
                 // 如果设置了WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE，弹出的View收不到Back键的事件
                 MassageWindowParams.flags = flags;
@@ -138,7 +121,6 @@ public class MyWindowManager {
                 //  MassageWindowParams.gravity = Gravity.CENTER;
 
                 MassageWindowParams.gravity = Gravity.LEFT | Gravity.TOP;
-
 
 
                 // MassageWindowParams.type = LayoutParams.TYPE_PHONE;
@@ -160,7 +142,7 @@ public class MyWindowManager {
             WindowManager windowManager = getWindowManager(context);
             windowManager.removeView(MassageWindow);
             MassageWindow = null;
-            MassageWindow.content=null;
+            MassageWindow.content = null;
 
         }
     }
@@ -178,47 +160,44 @@ public class MyWindowManager {
         return contextString.substring(contextString.lastIndexOf(".") + 1, contextString.indexOf("@"));
     }
 
-    public static void getDot(Context context){
+    public static void getDot(Context context) {
         get_massage(context);
     }
 
     public static void get_massage(Context context) {
-        MassageWindow.content=mnotimassageService.content;
-        if(settingActivity.massage_flag==0){
-            content1=MassageWindow.content;
-            MassageWindow.flag=1;
+        MassageWindow.content = mnotimassageService.content;
+        if (settingActivity.massage_flag == 0) {
+            content1 = MassageWindow.content;
+            MassageWindow.flag = 1;
         }
-        if((content1==MassageWindow.content)&& MassageWindow.flag==1) {
+        if ((content1 == MassageWindow.content) && MassageWindow.flag == 1) {
             imageView = (TextView) smallWindow.findViewById(R.id.red_dot);
-            MassageWindow.count=0;
-            scount=String.valueOf(MassageWindow.count);
+            MassageWindow.count = 0;
+            scount = String.valueOf(MassageWindow.count);
             imageView.setText(scount);
             imageView.setVisibility(View.GONE);
-            flag1=0;
-        }
-        else if (content1!=MassageWindow.content) {
+            flag1 = 0;
+        } else if (content1 != MassageWindow.content) {
             imageView = (TextView) smallWindow.findViewById(R.id.red_dot);
-            scount=String.valueOf(MassageWindow.count);
+            scount = String.valueOf(MassageWindow.count);
             imageView.setText(scount);
-            if(MassageWindow.count!=0)
+            if (MassageWindow.count != 0)
                 imageView.setVisibility(View.VISIBLE);
-            content1=MassageWindow.content;
-            MassageWindow.flag=0;
+            content1 = MassageWindow.content;
+            MassageWindow.flag = 0;
             MassageWindow.count++;
-            flag1=1;
+            flag1 = 1;
 
-        }
-        else  {
+        } else {
             imageView = (TextView) smallWindow.findViewById(R.id.red_dot);
-            scount=String.valueOf(MassageWindow.count);
+            scount = String.valueOf(MassageWindow.count);
             imageView.setText(scount);
-            if(MassageWindow.count!=0)
+            if (MassageWindow.count != 0)
                 imageView.setVisibility(View.VISIBLE);
-            MassageWindow.flag=0;
-            flag1=1;
+            MassageWindow.flag = 0;
+            flag1 = 1;
         }
     }
-
 
 
     public static String getMassage() {
@@ -306,55 +285,6 @@ public class MyWindowManager {
             mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         }
         return mWindowManager;
-    }
-
-    /**
-     * 如果ActivityManager还未创建，则创建一个新的ActivityManager返回。否则返回当前已创建的ActivityManager。
-     *
-     * @param context 可传入应用程序上下文。
-     * @return ActivityManager的实例，用于获取手机可用内存。
-     */
-    private static ActivityManager getActivityManager(Context context) {
-        if (mActivityManager == null) {
-            mActivityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        }
-        return mActivityManager;
-    }
-
-    /**
-     * 计算已使用内存的百分比，并返回。
-     *
-     * @param context 可传入应用程序上下文。
-     * @return 已使用内存的百分比，以字符串形式返回。
-     */
-    public static String getUsedPercentValue(Context context) {
-        String dir = "/proc/meminfo";
-        try {
-            FileReader fr = new FileReader(dir);
-            BufferedReader br = new BufferedReader(fr, 2048);
-            String memoryLine = br.readLine();
-            String subMemoryLine = memoryLine.substring(memoryLine.indexOf("MemTotal:"));
-            br.close();
-            long totalMemorySize = Integer.parseInt(subMemoryLine.replaceAll("\\D+", ""));
-            long availableSize = getAvailableMemory(context) / 1024;
-            int percent = (int) ((totalMemorySize - availableSize) / (float) totalMemorySize * 100);
-            return percent + "%";
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "悬浮窗";
-    }
-
-    /**
-     * 获取当前可用内存，返回数据以字节为单位。
-     *
-     * @param context 可传入应用程序上下文。
-     * @return 当前可用内存。
-     */
-    private static long getAvailableMemory(Context context) {
-        ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
-        getActivityManager(context).getMemoryInfo(mi);
-        return mi.availMem;
     }
 
 }
