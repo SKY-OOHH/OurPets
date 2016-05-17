@@ -19,14 +19,13 @@
             />
 
     </LinearLayout>
-
-    <!--<ImageView-->
-    <!--android:id="@+id/rocket_img"-->
-    <!--android:layout_width="90dp"-->
-    <!--android:layout_height="90dp"-->
-    <!--android:src="@mipmap/ic_launcher"-->
-    <!--android:visibility="gone"-->
-    <!--/>-->
+    <ImageView
+        android:id="@+id/rocket_img"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:src="@mipmap/ic_launcher"
+        android:visibility="gone"
+        />
 
     <TextView
         android:layout_width="20dp"

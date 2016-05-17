@@ -168,7 +168,7 @@ public class MyWindowManager {
     public static void getMassage(Context context) {
         if (MassageWindow != null) {
             TextView Massge_View = (TextView) MassageWindow.findViewById(R.id.Massge_View);
-            Massge_View.getBackground().setAlpha(160);//0~255透明度值
+            Massge_View.getBackground().setAlpha(240);//0~255透明度值
             Massge_View.setText(getMassage());
         }
     }
@@ -191,11 +191,9 @@ public class MyWindowManager {
     }
     public static void get_massage(Context context) {
         MassageWindow.content=mnotimassageService.content;
-        String A=getRunningActivityName(context);
-        if(A.equals("com.tencent.mm.ui.LauncherUI"))
-        {
+        if(settingActivity.massage_flag==0){
+            content1=MassageWindow.content;
             MassageWindow.flag=1;
-            MassageWindow.count=0;
         }
         if((content1==MassageWindow.content)&& MassageWindow.flag==1) {
             imageView = (TextView) smallWindow.findViewById(R.id.red_dot);
