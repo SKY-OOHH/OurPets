@@ -201,13 +201,13 @@ public class Pet {
         int handle = -1;
         switch (theme) {
             case Bear:
-                handle = R.mipmap.bear;
+                handle = R.drawable.bear;
                 break;
             case BlueSky:
-                handle = R.mipmap.bluesky;
+                handle = R.drawable.bluesky;
                 break;
             case Beaver:
-                handle = R.mipmap.beaver;
+                handle = R.drawable.beaver;
                 break;
         }
         return handle;
