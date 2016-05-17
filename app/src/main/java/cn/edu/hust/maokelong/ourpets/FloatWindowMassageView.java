@@ -37,7 +37,7 @@ public class FloatWindowMassageView extends LinearLayout {
         viewWidth = view.getLayoutParams().width;
         viewHeight = view.getLayoutParams().height;
         TextView Massge_View = (TextView) findViewById(R.id.Massge_View);
-        Massge_View.getBackground().setAlpha(240);//0~255透明度值
+        Massge_View.getBackground().setAlpha(140);//0~255透明度值
         Massge_View.setText(MyWindowManager.getMassage());
 
        /* Button weixin = (Button) findViewById(R.id.button);

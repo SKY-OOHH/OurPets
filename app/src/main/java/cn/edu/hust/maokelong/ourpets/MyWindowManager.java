@@ -168,7 +168,7 @@ public class MyWindowManager {
     public static void getMassage(Context context) {
         if (MassageWindow != null) {
             TextView Massge_View = (TextView) MassageWindow.findViewById(R.id.Massge_View);
-            Massge_View.getBackground().setAlpha(240);//0~255透明度值
+            Massge_View.getBackground().setAlpha(160);//0~255透明度值
             Massge_View.setText(getMassage());
         }
     }
@@ -179,16 +179,9 @@ public class MyWindowManager {
     }
 
     public static void getDot(Context context){
-        if(settingActivity.massage_flag==1){
-            get_massage(context);
-        }
-        else {
-            imageView = (TextView) smallWindow.findViewById(R.id.red_dot);
-            MassageWindow.count=0;
-            imageView.setVisibility(View.GONE);
-            flag1=0;
-        }
+        get_massage(context);
     }
+
     public static void get_massage(Context context) {
         MassageWindow.content=mnotimassageService.content;
         if(settingActivity.massage_flag==0){
@@ -229,6 +222,7 @@ public class MyWindowManager {
 
 
     public static String getMassage() {
+
         return mnotimassageService.content;
     }
 
