@@ -17,7 +17,6 @@ public class FloatWindowService extends Service {
      * 用于在线程中创建或移除悬浮窗。
      */
     private static NotimassageService mnotimassageService;
-
     private static FloatWindowMassageView MassageWindow;
     private static FloatWindowSmallView smallWindow;
 

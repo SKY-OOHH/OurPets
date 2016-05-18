@@ -14,7 +14,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import cn.edu.hust.maokelong.ourpets.alarm.Alarm;
-import cn.edu.hust.maokelong.ourpets.alarm.alert.AlarmAlertBroadcastReciever;
+import cn.edu.hust.maokelong.ourpets.AlarmAlertBroadcastReciever;
 import cn.edu.hust.maokelong.ourpets.alarm.database.Database;
 
 /**

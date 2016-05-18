@@ -4,7 +4,6 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.media.RingtoneManager;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -13,7 +12,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-import cn.edu.hust.maokelong.ourpets.alarm.alert.AlarmAlertBroadcastReciever;
+import cn.edu.hust.maokelong.ourpets.AlarmAlertBroadcastReciever;
 
 /**
  * Created by maokelong on 2016/5/2.

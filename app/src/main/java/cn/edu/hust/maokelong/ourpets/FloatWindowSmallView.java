@@ -1,12 +1,15 @@
 package cn.edu.hust.maokelong.ourpets;
 
+import android.app.Service;
 import android.content.Context;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.lang.reflect.Field;
 import java.util.Random;
@@ -80,10 +83,41 @@ public class FloatWindowSmallView extends LinearLayout {
      * 记录手指按下的时间(ms)
      */
     long clickTime;
+
+    /**
+     * 记录手指点击的次数
+     */
+    private int clickTimes;
+
+    /**
+     * 震动控制对象
+     */
+    private static Vibrator vibrator;
+
+    /**
+     * 震动记录对象
+     */
+    private static boolean vibrator_working;
+
+    /**
+     * 闹钟提示toast
+     */
+    private static Toast toast;
+
+
     Handler handler = new Handler();
 
     private GifImageView gif;
     private Pet mypet;
+
+//    final Runnable runnable_vibrator = new Runnable() {
+//        @Override
+//        public void run() {
+//            //启动震动，并持续指定的时间
+//            vibrator.vibrate(3500);
+//            vibrator.
+//        }
+//    };
 
     /**
      * 产生随机数，用于选择不同宠物的动态效果
@@ -153,6 +187,7 @@ public class FloatWindowSmallView extends LinearLayout {
         viewHeight = view.getLayoutParams().height;
         gif = (GifImageView) findViewById(R.id.petGif);
         mypet = new Pet();
+        vibrator = (Vibrator) context.getSystemService(Service.VIBRATOR_SERVICE);
         /*Pet.PetAction petAction1;
         Pet.PetTheme petTheme1;
         petTheme1 = mypet.getPetTheme();
@@ -241,6 +276,11 @@ public class FloatWindowSmallView extends LinearLayout {
                     gif.setImageResource(mypet.getStillImageSource(petTheme1));
                     handler.postDelayed(runnable2, 60000);                   //60秒后开始随机动
                     handler.removeCallbacks(runnable2);                     //关闭此次随机动，继续runnable1
+                    //移动距离大于200，且正在震动则停止震动
+                    if (vibrator_working &&
+                            Math.sqrt(Math.pow(xDownInScreen - xInScreen, 2) + Math.pow(yDownInScreen - yInScreen, 2)) > 200) {
+                        alarmFinish();
+                    }
                     //宠物贴边
                     int screenWidth = this.getResources().getDisplayMetrics().widthPixels;
                     if (xInScreen < screenWidth / 2) {
@@ -262,6 +302,7 @@ public class FloatWindowSmallView extends LinearLayout {
     /**
      * 打开大悬浮窗，同时关闭小悬浮窗。
      */
+
     private void openMassageWindow() {
         MyWindowManager.createMassageWindow(getContext());
         MyWindowManager.getMassage(getContext());
@@ -312,4 +353,22 @@ public class FloatWindowSmallView extends LinearLayout {
         }
         return statusBarHeight;
     }
+
+    public static void alarmBegin(Context context) {
+        if (vibrator.hasVibrator()) {
+            vibrator_working = true;
+            //循环震动
+            long[] pattern = {1000, 200, 200, 200};
+            vibrator.vibrate(pattern, 0);
+        }
+        //开启取消震动提示
+        toast=Toast.makeText(context, "滑动宠物以关闭闹钟",Toast.LENGTH_LONG);
+        toast.show();
+    }
+
+    public static void alarmFinish() {
+        vibrator.cancel();
+        toast.cancel();
+    }
+
 }
