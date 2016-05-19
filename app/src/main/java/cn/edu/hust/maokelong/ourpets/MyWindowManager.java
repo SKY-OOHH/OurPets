@@ -130,8 +130,13 @@ public class MyWindowManager {
                 //MassageWindowParams.gravity = Gravity.LEFT | Gravity.TOP;
                 MassageWindowParams.width = FloatWindowMassageView.viewWidth;
                 MassageWindowParams.height = FloatWindowMassageView.viewHeight;
-                MassageWindowParams.x = screenWidth;
-                MassageWindowParams.y = screenHeight / 2;
+                if(FloatWindowSmallView.mParams.x<screenWidth/2){
+                    MassageWindowParams.x = 140;
+                }
+                else {
+                    MassageWindowParams.x = screenWidth - 380 - MassageWindowParams.width;
+                }
+                MassageWindowParams.y =FloatWindowSmallView.mParams.y;
             }
             windowManager.addView(MassageWindow, MassageWindowParams);
         }
@@ -191,6 +196,7 @@ public class MyWindowManager {
             WindowManager windowManager = getWindowManager(context);
             windowManager.removeView(MassageWindow);
             MassageWindow = null;
+            MassageWindowParams=null;
             MassageWindow.content = null;
 
         }
@@ -199,7 +205,7 @@ public class MyWindowManager {
     public static void getMassage(Context context) {
         if (MassageWindow != null) {
             TextView Massge_View = (TextView) MassageWindow.findViewById(R.id.Massge_View);
-            Massge_View.getBackground().setAlpha(160);//0~255透明度值
+            Massge_View.getBackground().setAlpha(240);//0~255透明度值
             Massge_View.setText(getMassage());
         }
     }

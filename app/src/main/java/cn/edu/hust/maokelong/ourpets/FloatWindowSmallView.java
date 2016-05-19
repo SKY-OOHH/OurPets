@@ -46,7 +46,7 @@ public class FloatWindowSmallView extends LinearLayout {
     /**
      * 小悬浮窗的参数
      */
-    private WindowManager.LayoutParams mParams;
+    public static WindowManager.LayoutParams mParams;
     private static FloatWindowMassageView MassageWindow;
 
     /**
