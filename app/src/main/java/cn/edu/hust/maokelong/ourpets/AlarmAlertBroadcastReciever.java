@@ -11,9 +11,9 @@ import cn.edu.hust.maokelong.ourpets.alarm.service.AlarmServiceBroadcastReciever
 
 /**
  * Created by maokelong on 2016/4/29.
- * <p>
+ * <p/>
  * 1、转发来自"AlarmService"的广播给"AlarmServiceBroadcastReciever"
- * <p>
+ * <p/>
  * 2、打开 "AlarmAlertActivity"
  * key：     "alarm"
  * value:    广播中的内容
@@ -43,11 +43,14 @@ public class AlarmAlertBroadcastReciever extends BroadcastReceiver {
 //
 //        context.startActivity(mathAlarmAlertActivityIntent);
         //移除二级窗口，设置消息窗口的内容为闹钟标签，打开一级窗口、消息窗口，激活smallView闹钟（等待解锁、震动etc）
+        //启动桌面宠物服务，确保窗口是可以关闭的
+        Intent intentService = new Intent(context, FloatWindowService.class);
+        context.startService(intentService);
+        //显示宠物以及消息窗口
         MyWindowManager.removeBigWindow(context);
         MyWindowManager.createSmallWindow(context);
-        //TODO 显示闹钟消息 消息内容为alarm.getAlarmName()
-        FloatWindowMassageView.content = alarm.getAlarmName();
-        MyWindowManager.createMassageWindow(context);
+        MyWindowManager.createMassageWindow(context, alarm.getAlarmName());
+        //闹钟开启
         FloatWindowSmallView.alarmBegin(context);
     }
 
