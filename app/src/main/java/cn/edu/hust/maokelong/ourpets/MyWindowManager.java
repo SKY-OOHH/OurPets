@@ -6,7 +6,10 @@ package cn.edu.hust.maokelong.ourpets;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.graphics.Paint;
 import android.graphics.PixelFormat;
+import android.graphics.Rect;
+import android.text.TextPaint;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -96,6 +99,7 @@ public class MyWindowManager {
 
 
         WindowManager windowManager = getWindowManager(context);
+        float len = 0;
         int screenWidth = windowManager.getDefaultDisplay().getWidth();
         int screenHeight = windowManager.getDefaultDisplay().getHeight();
         if (MassageWindow == null) {
@@ -131,10 +135,22 @@ public class MyWindowManager {
                 MassageWindowParams.width = FloatWindowMassageView.viewWidth;
                 MassageWindowParams.height = FloatWindowMassageView.viewHeight;
                 if(FloatWindowSmallView.mParams.x<screenWidth/2){
-                    MassageWindowParams.x = 140;
+                    MassageWindowParams.width = 300;
+                    MassageWindowParams.x = 220;
                 }
                 else {
-                    MassageWindowParams.x = screenWidth - 380 - MassageWindowParams.width;
+                    TextView Massge_View = (TextView) MassageWindow.findViewById(R.id.Massge_View);
+                    Massge_View.setText(MyWindowManager.getMassage());
+                    Paint paint = new Paint();
+                    paint.setTextSize(Massge_View.getTextSize());
+                    len = paint.measureText(Massge_View.getText().toString());
+                    if (len < 140)
+                        MassageWindowParams.x = screenWidth - 440;
+                    else if (len > 600)
+                        MassageWindowParams.x = 80;
+                    else
+                        MassageWindowParams.x = screenWidth - (int) len - 250;
+
                 }
                 MassageWindowParams.y =FloatWindowSmallView.mParams.y;
             }
