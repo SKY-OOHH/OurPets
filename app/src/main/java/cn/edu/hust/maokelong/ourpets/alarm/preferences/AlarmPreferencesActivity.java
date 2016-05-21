@@ -19,9 +19,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import cn.edu.hust.maokelong.ourpets.R;
 import cn.edu.hust.maokelong.ourpets.alarm.Alarm;
 import cn.edu.hust.maokelong.ourpets.alarm.BaseActivity;
-import cn.edu.hust.maokelong.ourpets.R;
 import cn.edu.hust.maokelong.ourpets.alarm.database.Database;
 import cn.edu.hust.maokelong.ourpets.alarm.preferences.AlarmPreference.Key;
 

@@ -8,8 +8,6 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
-import android.graphics.Rect;
-import android.text.TextPaint;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;

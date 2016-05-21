@@ -1,7 +1,6 @@
 package cn.edu.hust.maokelong.ourpets.alarm.preferences;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,15 +8,13 @@ import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import cn.edu.hust.maokelong.ourpets.alarm.Alarm;
-import cn.edu.hust.maokelong.ourpets.alarm.AlarmActivity;
 import cn.edu.hust.maokelong.ourpets.R;
+import cn.edu.hust.maokelong.ourpets.alarm.Alarm;
 import cn.edu.hust.maokelong.ourpets.alarm.preferences.AlarmPreference.Type;
 
 /**

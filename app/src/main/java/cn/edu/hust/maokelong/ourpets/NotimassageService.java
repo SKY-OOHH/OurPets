@@ -4,21 +4,15 @@ package cn.edu.hust.maokelong.ourpets;
  * Created by 金盼盼 on 2016/4/28.
  */
 
-import java.util.List;
-
 import android.accessibilityservice.AccessibilityService;
-import android.accessibilityservice.AccessibilityServiceInfo;
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.PendingIntent.CanceledException;
 import android.content.Intent;
 import android.util.Log;
-import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-import android.widget.TextView;
-
 
 import java.util.List;
 

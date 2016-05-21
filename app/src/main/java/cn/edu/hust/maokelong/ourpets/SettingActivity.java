@@ -12,7 +12,6 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
-
 import cn.edu.hust.maokelong.ourpets.alarm.AlarmActivity;
 
 public class SettingActivity extends Activity {
