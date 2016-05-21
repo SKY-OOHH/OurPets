@@ -140,6 +140,7 @@ public class MyWindowManager {
                 }
                 else {
                     TextView Massge_View = (TextView) MassageWindow.findViewById(R.id.Massge_View);
+
                     Massge_View.setText(MyWindowManager.getMassage());
                     Paint paint = new Paint();
                     paint.setTextSize(Massge_View.getTextSize());
