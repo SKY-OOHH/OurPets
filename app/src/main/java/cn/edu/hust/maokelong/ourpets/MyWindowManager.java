@@ -137,6 +137,55 @@ public class MyWindowManager {
         }
     }
 
+    public static void createMassageWindow(Context context,String message) {
+
+
+        WindowManager windowManager = getWindowManager(context);
+        int screenWidth = windowManager.getDefaultDisplay().getWidth();
+        int screenHeight = windowManager.getDefaultDisplay().getHeight();
+        if (MassageWindow == null) {
+            MassageWindow = new FloatWindowMassageView(context);
+            if (MassageWindowParams == null) {
+                int flags = WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
+                MassageWindowParams = new LayoutParams();
+                MassageWindowParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+                // WindowManager.LayoutParams.TYPE_SYSTEM_ALERT
+                // 设置flag
+                // | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+                // 如果设置了WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE，弹出的View收不到Back键的事件
+                MassageWindowParams.flags = flags;
+                // 不设置这个弹出框的透明遮罩显示为黑色
+                MassageWindowParams.format = PixelFormat.TRANSLUCENT;
+                // FLAG_NOT_TOUCH_MODAL不阻塞事件传递到后面的窗口
+                // 设置 FLAG_NOT_FOCUSABLE 悬浮窗口较小时，后面的应用图标由不可长按变为可长按
+                // 不设置这个flag的话，home页的划屏会有问题
+
+                //MassageWindowParams.width = LayoutParams.MATCH_PARENT;
+                // MassageWindowParams.height = LayoutParams.MATCH_PARENT;
+
+                //  MassageWindowParams.gravity = Gravity.CENTER;
+
+                MassageWindowParams.gravity = Gravity.LEFT | Gravity.TOP;
+
+
+                // MassageWindowParams.type = LayoutParams.TYPE_PHONE;
+                // MassageWindowParams.format = PixelFormat.RGBA_8888;
+                //  MassageWindowParams.flags = LayoutParams.FLAG_NOT_TOUCH_MODAL
+                // | LayoutParams.FLAG_NOT_FOCUSABLE;
+                //MassageWindowParams.gravity = Gravity.LEFT | Gravity.TOP;
+                MassageWindowParams.width = FloatWindowMassageView.viewWidth;
+                MassageWindowParams.height = FloatWindowMassageView.viewHeight;
+                MassageWindowParams.x = screenWidth;
+                MassageWindowParams.y = screenHeight / 2;
+            }
+            //TODO 显示闹钟消息 消息内容为alarm.getAlarmName()
+            FloatWindowMassageView.content = message;
+            TextView textView = (TextView) MassageWindow.findViewById(R.id.Massge_View);
+            textView.setText(message);
+            windowManager.addView(MassageWindow, MassageWindowParams);
+        }
+    }
+
     public static void removeMassageWindow(Context context) {
         if (MassageWindow != null) {
             WindowManager windowManager = getWindowManager(context);
