@@ -24,10 +24,10 @@
             android:orientation="vertical">
 
             <ImageButton
-                android:id="@+id/button_naozhong"
+                android:id="@+id/button_alarm"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:background="@drawable/setting_system_normal" />
+                android:background="@drawable/ic_alarm" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -35,6 +35,12 @@
                 android:gravity="center_horizontal|center_vertical"
                 android:text="闹钟"
                 android:textColor="@android:color/primary_text_light" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/textView8" />
         </LinearLayout>
 
         <LinearLayout
@@ -46,7 +52,7 @@
                 android:id="@+id/button_setting"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:background="@drawable/setting_system_advance_press" />
+                android:background="@drawable/ic_setting" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -62,16 +68,16 @@
             android:orientation="vertical">
 
             <ImageButton
-                android:id="@+id/button_weixing"
+                android:id="@+id/button_remove"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:background="@drawable/ic_weixin" />
+                android:background="@drawable/ic_close" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal|center_vertical"
-                android:text="微信"
+                android:text="关闭宠物"
                 android:textColor="@android:color/primary_text_light" />
         </LinearLayout>
     </LinearLayout>

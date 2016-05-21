@@ -17,8 +17,8 @@ import cn.edu.hust.maokelong.ourpets.alarm.AlarmActivity;
  */
 public class FloatWindowBigView extends LinearLayout {
     private ImageButton button_setting;
-    private ImageButton button_naozhong;
-    private ImageButton button_weixing;
+    private ImageButton button_alarm;
+    private ImageButton button_remove;
     /**
      * 记录大悬浮窗的宽度
      */
@@ -35,8 +35,8 @@ public class FloatWindowBigView extends LinearLayout {
         final View view = findViewById(R.id.big_window_layout);
         viewWidth = view.getLayoutParams().width;
         viewHeight = view.getLayoutParams().height;
-        button_setting =(ImageButton) findViewById(R.id.button_setting)   ;
 
+        button_setting =(ImageButton) findViewById(R.id.button_setting)   ;
         button_setting.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,32 +44,73 @@ public class FloatWindowBigView extends LinearLayout {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
                 MyWindowManager.removeBigWindow(getContext());
+
             }
 
         });
-        button_naozhong =(ImageButton) findViewById(R.id.button_naozhong)   ;
-        button_naozhong.setOnClickListener(new Button.OnClickListener()
-        {
+        button_setting.setOnTouchListener(new OnTouchListener() {
             @Override
-            public  void onClick(View v){
-                Intent intent = new Intent(context,AlarmActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-                MyWindowManager.removeBigWindow(getContext());
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    //更改为按下时的背景图片
+                    v.setBackgroundResource(R.drawable.ic_setting1);
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    //改为抬起时的图片
+                    v.setBackgroundResource(R.drawable.ic_setting_pressed);
+                }
+                return false;
             }
-
         });
-        ImageButton button_weixing =(ImageButton) findViewById(R.id.button_weixing);
-        button_weixing.setOnClickListener(new Button.OnClickListener() {
+
+        button_alarm =(ImageButton) findViewById(R.id.button_alarm)   ;
+        button_alarm.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = context.getPackageManager().getLaunchIntentForPackage("com.tencent.mm");
+
+                Intent intent = new Intent(context, AlarmActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
                 MyWindowManager.removeBigWindow(getContext());
             }
         });
+        button_alarm.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    //更改为按下时的背景图片
+                    v.setBackgroundResource(R.drawable.ic_alarm1);
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    //改为抬起时的图片
+                    v.setBackgroundResource(R.drawable.ic_alarm_pressed);
+                }
+                return false;
+            }
+        });
+        button_remove =(ImageButton) findViewById(R.id.button_remove);
+        button_remove.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Intent intent = context.getPackageManager().getLaunchIntentForPackage("com.tencent.mm");
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //.startActivity(intent);
+                //  MyWindowManager.removeBigWindow(getContext());
+
+            }
+        });
+        button_remove.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    //更改为按下时的背景图片
+                    v.setBackgroundResource(R.drawable.ic_close1);
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    //改为抬起时的图片
+                    v.setBackgroundResource(R.drawable.ic_close_pressed);
+                }
+                return false;
+            }
+        });
         view.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -79,7 +120,7 @@ public class FloatWindowBigView extends LinearLayout {
                 int x = (int) event.getX();
                 int y = (int) event.getY();
                 Rect rect = new Rect();
-                View work_space=findViewById(R.id.big_window_layout_work_space);
+                View work_space = findViewById(R.id.big_window_layout_work_space);
                 work_space.getGlobalVisibleRect(rect);
                 if (!rect.contains(x, y)) {
                     //打开小悬浮窗，同时关闭大悬浮窗
