@@ -23,6 +23,29 @@
     <string name="texts">%$s</string>
     <string name="button_new">New</string>
 
+    <!-- pet -->
+    <string name="petname">宠物名</string>
+    <string name="petsex">宠物性别</string>
+    <string name="petword">个性签名</string>
+    <string name="pettheme">宠物主题选择</string>
+    <string-array name="themeofpet">
+        <item>Beaver</item>
+        <item>Bear</item>
+        <item>BlueSky</item>
+    </string-array>
+    <string-array name="valuethemeofpet">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+    <string-array name="sexofpet">
+        <item>boy</item>
+        <item>girl</item>
+    </string-array>
+    <string-array name="valuesexofpet">
+        <item>1</item>
+        <item>0</item>
+    </string-array>
     <!-- Menu -->
     <string name="menu_item_new">新建</string>
     <string name="menu_item_save">保存</string>

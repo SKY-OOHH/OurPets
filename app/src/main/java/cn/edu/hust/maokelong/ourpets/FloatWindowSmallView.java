@@ -186,7 +186,7 @@ public class FloatWindowSmallView extends LinearLayout {
         viewWidth = view.getLayoutParams().width;
         viewHeight = view.getLayoutParams().height;
         gif = (GifImageView) findViewById(R.id.petGif);
-        mypet = new Pet();
+        mypet = new Pet(context);
         vibrator = (Vibrator) context.getSystemService(Service.VIBRATOR_SERVICE);
         /*Pet.PetAction petAction1;
         Pet.PetTheme petTheme1;

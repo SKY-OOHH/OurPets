@@ -34,7 +34,10 @@
         </activity>
         <service android:name=".FloatWindowService"></service>
 
-        <activity android:name=".Settingabout" />
+        <activity android:name=".Settingabout"
+            android:parentActivityName=".SettingActivity"/>
+        <activity android:name=".SettingPet"
+            android:parentActivityName=".SettingActivity"/>
         <activity
             android:name=".alarm.AlarmActivity"
             android:label="@string/plugin_alarm"
@@ -63,6 +66,12 @@
         <receiver android:name=".alarm.service.AlarmServiceBroadcastReciever">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".FloatWindowBigView$broadcastPetShow">
+            <intent-filter>
+                <action android:name="ELITOR_CLOCK" />
             </intent-filter>
         </receiver>
 

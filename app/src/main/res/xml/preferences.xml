@@ -23,23 +23,21 @@
 
     <Preference
         android:key="alarm"
-        android:summary="@string/switch_boot_auto"
         android:title="@string/switch_clock" />
 
     <Preference
         android:key="Blueteeth"
         android:title="@string/switch_blueteeth" />
 
-    <Preference android:title="@string/petsetting">
+    <Preference android:title="@string/petsetting"
+        android:key="petset"/>
 
-        <intent  android:action="android.intent.action.QUICK_CLOCK" />
-    </Preference>
 
-    <Preference android:title="@string/about">
 
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:data="www.baidu.com" />
-    </Preference>
+    <Preference android:title="@string/about"
+        android:key="about"/>
+
+
+
 
 </PreferenceScreen>

@@ -1,12 +1,18 @@
 package cn.edu.hust.maokelong.ourpets;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Rect;
+import android.support.v7.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
@@ -29,25 +35,20 @@ public class FloatWindowBigView extends LinearLayout {
      */
     public static int viewHeight;
 
+    /**
+     * 通知栏组件
+     */
+
     public FloatWindowBigView(final Context context) {
         super(context);
+        //view绑定
         LayoutInflater.from(context).inflate(R.layout.float_window_big, this);
         final View view = findViewById(R.id.big_window_layout);
+
         viewWidth = view.getLayoutParams().width;
         viewHeight = view.getLayoutParams().height;
 
-        button_setting =(ImageButton) findViewById(R.id.button_setting)   ;
-        button_setting.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, SettingActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-                MyWindowManager.removeBigWindow(getContext());
-
-            }
-
-        });
+        button_setting = (ImageButton) findViewById(R.id.button_setting);
         button_setting.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -57,22 +58,17 @@ public class FloatWindowBigView extends LinearLayout {
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     //改为抬起时的图片
                     v.setBackgroundResource(R.drawable.ic_setting_pressed);
+                    //打开设置界面并关闭二级窗口
+                    Intent intent = new Intent(context, SettingActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                    MyWindowManager.removeBigWindow(getContext());
                 }
                 return false;
             }
         });
 
-        button_alarm =(ImageButton) findViewById(R.id.button_alarm)   ;
-        button_alarm.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(context, AlarmActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-                MyWindowManager.removeBigWindow(getContext());
-            }
-        });
+        button_alarm = (ImageButton) findViewById(R.id.button_alarm);
         button_alarm.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -82,22 +78,16 @@ public class FloatWindowBigView extends LinearLayout {
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     //改为抬起时的图片
                     v.setBackgroundResource(R.drawable.ic_alarm_pressed);
+                    //打开闹钟界面并关闭二级窗口
+                    Intent intent = new Intent(context, AlarmActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                    MyWindowManager.removeBigWindow(getContext());
                 }
                 return false;
             }
         });
-        button_remove =(ImageButton) findViewById(R.id.button_remove);
-        button_remove.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = context.getPackageManager().getLaunchIntentForPackage("com.tencent.mm");
-                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                //.startActivity(intent);
-                //  MyWindowManager.removeBigWindow(getContext());
-
-            }
-        });
+        button_remove = (ImageButton) findViewById(R.id.button_remove);
         button_remove.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -107,6 +97,37 @@ public class FloatWindowBigView extends LinearLayout {
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     //改为抬起时的图片
                     v.setBackgroundResource(R.drawable.ic_close_pressed);
+                    //通知栏设置
+                    //      创建一个NotificationManager的引用
+                    NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+                    //      定义Notification的各种属性
+                    Notification notification = new Notification(R.drawable.bear
+                            , "桌面宠物在这里哦~！", System.currentTimeMillis());
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+                    notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+                    //      设置通知的事件消息
+                    CharSequence contentTitle = "桌面大宠物"; // 通知栏标题
+                    CharSequence contentText = "点我召唤桌面宠物哦~！"; // 通知栏内容
+
+                    Intent clickIntent = new Intent(context, broadcastPetShow.class); //点击通知之后要发送的广播
+                    int id = (int) (System.currentTimeMillis() / 1000);
+                    PendingIntent contentIntent = PendingIntent.getBroadcast(context.getApplicationContext(), id, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                    builder.setContentTitle(contentTitle)
+                            .setContentText(contentText)
+                            .setContentIntent(contentIntent)
+                            .setAutoCancel(true)
+                            .setSmallIcon(R.drawable.bear)
+                            .setLargeIcon(Bitmap.createBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.bear)));
+                    notificationManager.notify(id, builder.build());
+
+                    //隐藏宠物
+                    MyWindowManager.removeBigWindow(getContext());
+                    MyWindowManager.removeSmallWindow(getContext());
+                    context.stopService(new Intent(context, FloatWindowService.class));
+
                 }
                 return false;
             }
@@ -133,5 +154,12 @@ public class FloatWindowBigView extends LinearLayout {
         });
     }
 
+    public static class broadcastPetShow extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            context.startService(new Intent(context, FloatWindowService.class));
+            MyWindowManager.createSmallWindow(context);
+        }
 
+    }
 }
