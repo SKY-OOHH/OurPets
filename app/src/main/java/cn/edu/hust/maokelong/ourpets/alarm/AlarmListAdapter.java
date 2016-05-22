@@ -10,8 +10,8 @@ import android.widget.ToggleButton;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.edu.hust.maokelong.ourpets.alarm.database.Database;
 import cn.edu.hust.maokelong.ourpets.R;
+import cn.edu.hust.maokelong.ourpets.alarm.database.Database;
 
 /**
  * Created by maokelong on 2016/5/2.

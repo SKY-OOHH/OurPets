@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import cn.edu.hust.maokelong.ourpets.alarm.Alarm;
 import cn.edu.hust.maokelong.ourpets.R;
+import cn.edu.hust.maokelong.ourpets.alarm.Alarm;
 
 /**
  * Created by maokelong on 2016/4/29.

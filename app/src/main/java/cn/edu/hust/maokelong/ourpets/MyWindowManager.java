@@ -6,6 +6,7 @@ package cn.edu.hust.maokelong.ourpets;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.view.Gravity;
 import android.view.View;
@@ -96,6 +97,7 @@ public class MyWindowManager {
 
 
         WindowManager windowManager = getWindowManager(context);
+        float len = 0;
         int screenWidth = windowManager.getDefaultDisplay().getWidth();
         int screenHeight = windowManager.getDefaultDisplay().getHeight();
         if (MassageWindow == null) {
@@ -130,8 +132,26 @@ public class MyWindowManager {
                 //MassageWindowParams.gravity = Gravity.LEFT | Gravity.TOP;
                 MassageWindowParams.width = FloatWindowMassageView.viewWidth;
                 MassageWindowParams.height = FloatWindowMassageView.viewHeight;
-                MassageWindowParams.x = screenWidth;
-                MassageWindowParams.y = screenHeight / 2;
+                if(FloatWindowSmallView.mParams.x<screenWidth/2){
+                    MassageWindowParams.width = 300;
+                    MassageWindowParams.x = 220;
+                }
+                else {
+                    TextView Massge_View = (TextView) MassageWindow.findViewById(R.id.Massge_View);
+
+                    Massge_View.setText(MyWindowManager.getMassage());
+                    Paint paint = new Paint();
+                    paint.setTextSize(Massge_View.getTextSize());
+                    len = paint.measureText(Massge_View.getText().toString());
+                    if (len < 140)
+                        MassageWindowParams.x = screenWidth - 440;
+                    else if (len > 600)
+                        MassageWindowParams.x = 80;
+                    else
+                        MassageWindowParams.x = screenWidth - (int) len - 250;
+
+                }
+                MassageWindowParams.y =FloatWindowSmallView.mParams.y;
             }
             windowManager.addView(MassageWindow, MassageWindowParams);
         }
@@ -191,6 +211,7 @@ public class MyWindowManager {
             WindowManager windowManager = getWindowManager(context);
             windowManager.removeView(MassageWindow);
             MassageWindow = null;
+            MassageWindowParams=null;
             MassageWindow.content = null;
 
         }
@@ -199,7 +220,7 @@ public class MyWindowManager {
     public static void getMassage(Context context) {
         if (MassageWindow != null) {
             TextView Massge_View = (TextView) MassageWindow.findViewById(R.id.Massge_View);
-            Massge_View.getBackground().setAlpha(160);//0~255透明度值
+            Massge_View.getBackground().setAlpha(240);//0~255透明度值
             Massge_View.setText(getMassage());
         }
     }

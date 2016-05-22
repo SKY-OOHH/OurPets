@@ -10,9 +10,9 @@ import android.view.ViewConfiguration;
 
 import java.lang.reflect.Field;
 
+import cn.edu.hust.maokelong.ourpets.R;
 import cn.edu.hust.maokelong.ourpets.alarm.preferences.AlarmPreferencesActivity;
 import cn.edu.hust.maokelong.ourpets.alarm.service.AlarmServiceBroadcastReciever;
-import cn.edu.hust.maokelong.ourpets.R;
 
 /**
  * Created by maokelong on 2016/4/29.
