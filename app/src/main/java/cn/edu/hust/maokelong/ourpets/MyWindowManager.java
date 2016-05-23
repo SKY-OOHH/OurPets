@@ -160,6 +160,7 @@ public class MyWindowManager {
 
 
         WindowManager windowManager = getWindowManager(context);
+        float len = 0;
         int screenWidth = windowManager.getDefaultDisplay().getWidth();
         int screenHeight = windowManager.getDefaultDisplay().getHeight();
         if (MassageWindow == null) {
@@ -194,13 +195,27 @@ public class MyWindowManager {
                 //MassageWindowParams.gravity = Gravity.LEFT | Gravity.TOP;
                 MassageWindowParams.width = FloatWindowMassageView.viewWidth;
                 MassageWindowParams.height = FloatWindowMassageView.viewHeight;
-                MassageWindowParams.x = screenWidth;
-                MassageWindowParams.y = screenHeight / 2;
+                TextView Massge_View = (TextView) MassageWindow.findViewById(R.id.Massge_View);
+
+                Massge_View.setText(message);
+                Paint paint = new Paint();
+                paint.setTextSize(Massge_View.getTextSize());
+                if(FloatWindowSmallView.mParams.x<screenWidth/2){
+                    MassageWindowParams.x = 220;
+                }
+                else {
+
+                    len = paint.measureText(Massge_View.getText().toString());
+                    if (len < 240)
+                        MassageWindowParams.x = screenWidth - 440;
+                    else if (len > 600)
+                        MassageWindowParams.x = 80;
+                    else
+                        MassageWindowParams.x = screenWidth - (int) len - 250;
+
+                }
+                MassageWindowParams.y =FloatWindowSmallView.mParams.y;
             }
-            //TODO 显示闹钟消息 消息内容为alarm.getAlarmName()
-            FloatWindowMassageView.content = message;
-            TextView textView = (TextView) MassageWindow.findViewById(R.id.Massge_View);
-            textView.setText(message);
             windowManager.addView(MassageWindow, MassageWindowParams);
         }
     }
