@@ -105,9 +105,15 @@ public class SettingActivity extends Activity  {
 
 //switch_messager
             switch_messager = (SwitchPreference) findPreference("weixin");
-            if (switch_boot_on.isChecked()) {//用于第一次使用默认值信息
+
+            if (switch_messager.isChecked()) {//用于第一次使用默认值信息
                 //选中work_boot_auto
                 massage_flag = 1;
+
+            }
+            else{//用于第一次使用默认值信息
+                //选中work_boot_auto
+                massage_flag = 0;
 
             }
 

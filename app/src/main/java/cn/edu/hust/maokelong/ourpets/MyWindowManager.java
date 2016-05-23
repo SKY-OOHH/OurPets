@@ -133,7 +133,6 @@ public class MyWindowManager {
                 MassageWindowParams.width = FloatWindowMassageView.viewWidth;
                 MassageWindowParams.height = FloatWindowMassageView.viewHeight;
                 if(FloatWindowSmallView.mParams.x<screenWidth/2){
-                    MassageWindowParams.width = 300;
                     MassageWindowParams.x = 220;
                 }
                 else {
@@ -143,7 +142,7 @@ public class MyWindowManager {
                     Paint paint = new Paint();
                     paint.setTextSize(Massge_View.getTextSize());
                     len = paint.measureText(Massge_View.getText().toString());
-                    if (len < 140)
+                    if (len < 240)
                         MassageWindowParams.x = screenWidth - 440;
                     else if (len > 600)
                         MassageWindowParams.x = 80;
