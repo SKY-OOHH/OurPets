@@ -1,5 +1,6 @@
 package cn.edu.hust.maokelong.ourpets;
 
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -43,6 +44,9 @@ public class AlarmAlertBroadcastReciever extends BroadcastReceiver {
 //
 //        context.startActivity(mathAlarmAlertActivityIntent);
         //移除二级窗口，设置消息窗口的内容为闹钟标签，打开一级窗口、消息窗口，激活smallView闹钟（等待解锁、震动etc）
+        //清除notification
+        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.cancel(100);
         //启动桌面宠物服务，确保窗口是可以关闭的
         Intent intentService = new Intent(context, FloatWindowService.class);
         context.startService(intentService);

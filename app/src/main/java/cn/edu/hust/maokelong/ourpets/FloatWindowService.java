@@ -39,10 +39,10 @@ public class FloatWindowService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // 开启定时器，每隔0.5秒刷新一次
+        // 开启定时器，每隔1秒刷新一次
         if (timer == null) {
             timer = new Timer();
-            timer.scheduleAtFixedRate(new RefreshTask(), 0, 500);
+            timer.scheduleAtFixedRate(new RefreshTask(), 0, 1000);
         }
         return super.onStartCommand(intent, flags, startId);
     }

@@ -36,7 +36,7 @@ public class SettingActivity extends Activity  {
         private Preference blueteeth;
         private Preference petset;
         private SwitchPreference switch_work;
-        private SwitchPreference switch_boot_on;
+
         private SwitchPreference switch_messager;
 
         @Override
@@ -77,35 +77,12 @@ public class SettingActivity extends Activity  {
 
             });
 
-//switch_boot_on
-            switch_boot_on = (SwitchPreference) findPreference("boot_auto");
-            if (switch_boot_on.isChecked()) {//用于第一次使用默认值信息
-                //选中work_boot_auto
-                start_flag = 1;
 
-            }
-            //监听
-            switch_boot_on.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    if (switch_boot_on.isChecked()==false) {
-                        //选中work_boot_auto
-                        start_flag = 1;
-
-                    } else {
-                        //未选中work_boot_auto
-                        start_flag = 0;
-                    }
-
-                    return true;
-                }
-
-            });
 
 
 //switch_messager
             switch_messager = (SwitchPreference) findPreference("weixin");
-            if (switch_boot_on.isChecked()) {//用于第一次使用默认值信息
+            if (switch_messager.isChecked()) {//用于第一次使用默认值信息
                 //选中work_boot_auto
                 massage_flag = 1;
 

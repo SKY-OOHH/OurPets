@@ -106,13 +106,15 @@ public class FloatWindowBigView extends LinearLayout {
                             , "桌面宠物在这里哦~！", System.currentTimeMillis());
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
                     notification.flags |= Notification.FLAG_AUTO_CANCEL;
+                    notification.flags |= Notification.FLAG_ONGOING_EVENT;
+                    notification.flags |= Notification.FLAG_NO_CLEAR;
 
                     //      设置通知的事件消息
                     CharSequence contentTitle = "桌面大宠物"; // 通知栏标题
                     CharSequence contentText = "点我召唤桌面宠物哦~！"; // 通知栏内容
 
                     Intent clickIntent = new Intent(context, broadcastPetShow.class); //点击通知之后要发送的广播
-                    int id = (int) (System.currentTimeMillis() / 1000);
+                    int id = 100;
                     PendingIntent contentIntent = PendingIntent.getBroadcast(context.getApplicationContext(), id, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                     builder.setContentTitle(contentTitle)
@@ -120,7 +122,9 @@ public class FloatWindowBigView extends LinearLayout {
                             .setContentIntent(contentIntent)
                             .setAutoCancel(true)
                             .setSmallIcon(R.drawable.bear)
-                            .setLargeIcon(Bitmap.createBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.bear)));
+                            .setLargeIcon(Bitmap.createBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.bear)))
+                            .setOngoing(true)
+                    ;
                     notificationManager.notify(id, builder.build());
 
                     //隐藏宠物
