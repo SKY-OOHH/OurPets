@@ -160,8 +160,8 @@ public class FloatWindowSmallView extends LinearLayout {
             petTheme1 = mypet.getPetTheme();
             petAction1 = mypet.getPetAction(Random(petTheme1));
             gif.setImageResource(mypet.getActionImageSource(petTheme1, petAction1));
-            handler.postDelayed(runnable, 15000);      //动15秒
-            handler.postDelayed(this, 600000);         //静600秒后继续动
+            handler.postDelayed(runnable, 6000);      //动6秒
+            handler.postDelayed(this, 24000);         //静24秒后继续动
         }
     };
     final Runnable runnable2 = new Runnable() {
@@ -173,8 +173,8 @@ public class FloatWindowSmallView extends LinearLayout {
             petTheme1 = mypet.getPetTheme();
             petAction1 = mypet.getPetAction(Random(petTheme1));
             gif.setImageResource(mypet.getActionImageSource(petTheme1, petAction1));
-            handler.postDelayed(runnable, 15000);      //动15秒
-            handler.postDelayed(this, 600000);         //静600秒后继续动
+            handler.postDelayed(runnable, 6000);      //动6秒
+            handler.postDelayed(this, 24000);         //静24秒后继续动
         }
     };
 
@@ -215,7 +215,7 @@ public class FloatWindowSmallView extends LinearLayout {
                 handler.postDelayed(this, 600000);        //静600秒
             }
         };*/
-        handler.postDelayed(runnable1, 60000);           //60秒后开始动
+        handler.postDelayed(runnable1, 30000);           //30秒后开始动
         Pet.PetTheme petTheme1;
         petTheme1 = mypet.getPetTheme();
         gif.setImageResource(mypet.getStillImageSource(petTheme1));
@@ -246,6 +246,12 @@ public class FloatWindowSmallView extends LinearLayout {
                 yInScreen = event.getRawY() - getStatusBarHeight();
                 //记录按下时间
                 clickTime = System.currentTimeMillis();
+                /**
+                 * 按下的时候，宠物开始动
+                 */
+                Pet.PetTheme petTheme1;
+                petTheme1 = mypet.getPetTheme();
+                gif.setImageResource(mypet.getMoveImageSource(petTheme1));
                 break;
             case MotionEvent.ACTION_MOVE:
                 //按下0.2秒后视为希望移动
@@ -254,12 +260,7 @@ public class FloatWindowSmallView extends LinearLayout {
                     yInScreen = event.getRawY() - getStatusBarHeight();
                     // 手指移动的时候更新小悬浮窗的位置
                     updateViewPosition();
-                    /**
-                     * 移动的时候，宠物开始动
-                     */
-                    Pet.PetTheme petTheme1;
-                    petTheme1 = mypet.getPetTheme();
-                    gif.setImageResource(mypet.getMoveImageSource(petTheme1));
+
                 }
                 break;
             case MotionEvent.ACTION_UP:
@@ -271,9 +272,9 @@ public class FloatWindowSmallView extends LinearLayout {
                         openMassageWindow();
                 } else {
                     //手指离开屏幕，并判断是拖拽事件
-                    Pet.PetTheme petTheme1;                                     //停止动态效果
-                    petTheme1 = mypet.getPetTheme();
-                    gif.setImageResource(mypet.getStillImageSource(petTheme1));
+                    Pet.PetTheme petTheme2;                                     //停止动态效果
+                    petTheme2 = mypet.getPetTheme();
+                    gif.setImageResource(mypet.getStillImageSource(petTheme2));
                     handler.postDelayed(runnable2, 60000);                   //60秒后开始随机动
                     handler.removeCallbacks(runnable2);                     //关闭此次随机动，继续runnable1
                     //移动距离大于200，且正在震动则停止震动
