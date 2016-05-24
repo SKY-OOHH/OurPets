@@ -12,10 +12,10 @@ import android.preference.SwitchPreference;
 
 import cn.edu.hust.maokelong.ourpets.alarm.AlarmActivity;
 
-public class SettingActivity extends Activity {
+public class SettingActivity extends Activity  {
     public MyReceiver receiver = null;
     public static int massage_flag = 0;
-    public static int start_flag = 1;
+    public static int start_flag = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,13 +25,12 @@ public class SettingActivity extends Activity {
                 .commit();
         //注册广播接收器
         startService(new Intent(SettingActivity.this, NotimassageService.class));
-        receiver = new MyReceiver();
+        receiver = new  MyReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction("cn.edu.hust.maokelong.ourpets.NotimassageService");
-        registerReceiver(receiver, filter);
+         registerReceiver(receiver, filter);
     }//使用perferenceFragment
-
-    public static class SettingFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+    public  static   class SettingFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener,Preference.OnPreferenceClickListener {
         private Preference about;
         private Preference clock;
         private Preference blueteeth;
@@ -58,7 +57,7 @@ public class SettingActivity extends Activity {
             switch_work.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    if (switch_work.isChecked() == false) {  //此处的 ischecked信息，为监控发生改变之前的信息，即若进行“打开”行为，则进行判定的ischecked是为“未打开”状态。下同
+                    if (switch_work.isChecked()==false) {  //此处的 ischecked信息，为监控发生改变之前的信息，即若进行“打开”行为，则进行判定的ischecked是为“未打开”状态。下同
                         //勾选则开启服务
                         Intent intent = new Intent(getActivity(),
                                 FloatWindowService.class);
@@ -73,10 +72,12 @@ public class SettingActivity extends Activity {
                         context.stopService(intent);
                     }
 
-                    return true;
-                }
+                  return true;
+               }
 
             });
+
+
 
 
 //switch_messager
@@ -90,7 +91,7 @@ public class SettingActivity extends Activity {
             switch_messager.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    if (switch_messager.isChecked() == false) {
+                    if (switch_messager.isChecked()==false) {
                         //选中work_boot_auto
                         massage_flag = 1;
 
@@ -103,6 +104,14 @@ public class SettingActivity extends Activity {
                 }
 
             });
+
+
+
+
+
+
+
+
 
 
 //Blueteeth
@@ -145,6 +154,7 @@ public class SettingActivity extends Activity {
             });
 
 
+
         }
 
 
@@ -159,7 +169,6 @@ public class SettingActivity extends Activity {
         }
 
     }
-
     @Override
     protected void onDestroy() {
         //结束服务
@@ -180,6 +189,7 @@ public class SettingActivity extends Activity {
             String content = bundle.getString("count");
         }
     }
+
 
 
 }
